@@ -1,0 +1,41 @@
+[alias]
+	conflicts = diff --name-only --diff-filter=U
+	graph = log --all --decorate --graph --oneline
+	st = status
+	lg =  log --graph --pretty=format:\"%C(auto)%h%d%Creset %C(cyan)(%cr)%Creset %C(green)%cn <%ce>%Creset %s\"
+	co = checkout
+[user]
+	email = drudge.rajan@gmail.com
+	name = Rajendra Sharma
+	signingKey = 62B7E76C1D385EEB
+[core]
+	fileMode = false
+	excludesfile = /Users/rajendras/.gitignore_global
+	editor = nvim
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+ ; [url "git@github.com:"]
+ ;  	insteadOf = https://github.com/
+ ; 
+[core]
+    pager = delta
+
+[delta]
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    side-by-side = true
+    line-numbers = true
+    minus-style = red bold ul "#ffeeee"
+
+[interactive]
+    diffFilter = delta --color-only
+[pull]
+	rebase = false
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
