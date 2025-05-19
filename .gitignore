@@ -1,5 +1,11 @@
-*~
-*.out
-*.swp
-
+.idea/
+tmp/
 .DS_Store
+proto/
+gen/
+run.sh
+gcs_service_account.json
+.env
+.envrc
+/Users/rajendras/projects/thxlab/deployment/lke-thxnet-dev/bccor-dev/bccor-private-secret.yaml
+
