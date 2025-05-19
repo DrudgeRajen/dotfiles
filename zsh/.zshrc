@@ -14,8 +14,6 @@ export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 export GO111MODULE=on
-export GONOPROXY="github.com/AlphaFounders"
-export GONOSUMDB="github.com/AlphaFounders"
 export PATH=/Users/rajendras/.local/bin:$PATH
 export PATH=/Users/rajendras/Library/Python/3.11/bin:$PATH
 
