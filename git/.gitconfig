@@ -10,7 +10,7 @@
 	signingKey = 62B7E76C1D385EEB
 [core]
 	fileMode = false
-	excludesfile = /Users/rajendras/.gitignore_global
+	excludesfile = /Users/rajendras/.gitignore
 	editor = nvim
 [filter "lfs"]
 	required = true
