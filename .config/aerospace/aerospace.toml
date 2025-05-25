@@ -71,8 +71,8 @@ automatically-unhide-macos-hidden-apps = false
     inner.horizontal = 10
     inner.vertical =   10
     outer.left =       10
-    outer.bottom =     10
-    outer.top =        10
+    outer.bottom =     25
+    outer.top =        35
     outer.right =      10
 
 # 'main' binding mode declaration
@@ -246,3 +246,7 @@ run = "move-node-to-workspace M"
 [[on-window-detected]]
 if.app-id = 'com.electron.dockerdesktop'
 run = "move-node-to-workspace R"
+
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = "move-node-to-workspace C"
