@@ -22,12 +22,13 @@ return {
       require('lspconfig').rust_analyzer.setup({
         cmd = { "rustup", "run", "stable", "rust-analyzer" },
         capabilities = capabilities,
+
         settings = {
           ["rust-analyzer"] = {
             diagnostics = { enable = false },
             checkOnSave = {
               command = "clippy",
-              extraArgs = { "--all-features" }
+              extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
             },
             imports = {
               granularity = {
@@ -35,6 +36,17 @@ return {
               },
               prefix = "self",
             },
+            cargo = {
+              buildScripts = {
+                enable = false
+              },
+              target = nil,
+              loadOutDirsFromCheck = false,
+            },
+            files = {
+              watcher = "client"
+            },
+
           },
         },
       })
