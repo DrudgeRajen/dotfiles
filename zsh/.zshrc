@@ -164,7 +164,7 @@ export NVM_DIR="$HOME/.nvm"
 #echo -e "\033]6;1;bg;red;brightness;18\a"
 #echo -e "\033]6;1;bg;green;brightness;26\a"
 #echo -e "\033]6;1;bg;blue;brightness;33\a"
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 
 export PQ_LIB_DIR="$(brew --prefix libpq)/lib"
 export PROTOC=/opt/homebrew/bin/protoc
