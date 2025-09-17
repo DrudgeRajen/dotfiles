@@ -129,7 +129,6 @@ zstyle :omz:plugins:ssh-agent agent-forwarding on
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 function docker-ip() {
     docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
@@ -191,11 +190,16 @@ if [ -f '/opt/google-cloud-sdk/completion.zsh.inc' ]; then source '/opt/google-c
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-. "$HOME/.atuin/bin/env"
-
-eval "$(atuin init zsh)"
-eval "$(atuin init zsh)"
-
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/rajendras/.cache/lm-studio/bin"
 PROMPT='$(kube_ps1)'$PROMPT # or RPROMPT='$(kube_ps1)'
+
+
+eval "$(zoxide init zsh)"
+
+alias ls="eza --icons=always"
+
+alias cd="z"
+
+# fzf
+eval "$(fzf --zsh)"
