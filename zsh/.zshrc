@@ -203,3 +203,4 @@ alias cd="z"
 
 # fzf
 eval "$(fzf --zsh)"
+bindkey -s '^F' 'fzf\n'
