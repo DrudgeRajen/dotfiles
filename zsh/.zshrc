@@ -195,12 +195,71 @@ export PATH="$PATH:/Users/rajendras/.cache/lm-studio/bin"
 PROMPT='$(kube_ps1)'$PROMPT # or RPROMPT='$(kube_ps1)'
 
 
+# ----zexoide (better cd) -----
 eval "$(zoxide init zsh)"
-
-alias ls="eza --icons=always"
-
 alias cd="z"
 
+# ------- eza (better ls) -----
+alias ls="eza --icons=always"
+
+
 # fzf
+# Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
-bindkey -s '^F' 'fzf\n'
+
+# --- Gruvbox-Material theme for fzf ---
+# Colors matching gruvbox-material medium contrast
+fg="#d4be98"           # Light foreground
+bg=""            
+bg_highlight="#3c3836" # Slightly lighter background for selection
+orange="#e78a4e"       # Orange accent (gruvbox orange)
+yellow="#d8a657"       # Yellow accent
+green="#a9b665"        # Green accent
+blue="#7daea3"         # Blue accent
+red="#ea6962"          # Red accent
+purple="#d3869b"       # Purple accent
+
+export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${orange},fg+:${fg},bg+:${bg_highlight},hl+:${yellow},info:${blue},prompt:${green},pointer:${orange},marker:${red},spinner:${yellow},header:${purple}"
+
+# -- Use fd instead of fzf --
+
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+#  ------ File perview with fzf and eza -----
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo \${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
+
+
+# ------- bat (better cat) ----------
+export BAT_THEME=gruvbox-dark
