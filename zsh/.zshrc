@@ -260,6 +260,11 @@ _fzf_comprun() {
   esac
 }
 
+# --- TheFuck-------
+# thefuck alias
+eval $(thefuck --alias)
+eval $(thefuck --alias fk)
+
 
 # ------- bat (better cat) ----------
 export BAT_THEME=gruvbox-dark
