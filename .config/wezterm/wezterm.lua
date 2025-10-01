@@ -112,6 +112,25 @@ config.keys = {
 
   { key = 'k', mods = 'CMD',  action = action.ClearScrollback 'ScrollbackAndViewport' },
   { key = 'w', mods = 'CMD',  action = action.CloseCurrentPane { confirm = false } },
+
+  -- Pass Ctrl+Tab to tmux
+  {
+    key = 'Tab',
+    mods = 'CTRL',
+    action = wezterm.action.SendKey {
+      key = 'Tab',
+      mods = 'CTRL',
+    },
+  },
+  -- Pass Ctrl+Shift+Tab to tmux
+  {
+    key = 'Tab',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.SendKey {
+      key = 'Tab',
+      mods = 'CTRL|SHIFT',
+    },
+  },
 }
 
 -- Open Hyperlinks with Ctrl + Mouse click
@@ -150,40 +169,40 @@ end)
 -- or `wezterm cli set-tab-title`, but falls back to the
 -- title of the active pane in that tab.
 function tab_title(tab_info)
-	local title = tab_info.tab_title
-	-- if the tab title is explicitly set, take that
-	if title and #title > 0 then
-		return title
-	end
-	-- Otherwise, use the title from the active pane
-	-- in that tab
-	return tab_info.active_pane.title
+  local title = tab_info.tab_title
+  -- if the tab title is explicitly set, take that
+  if title and #title > 0 then
+    return title
+  end
+  -- Otherwise, use the title from the active pane
+  -- in that tab
+  return tab_info.active_pane.title
 end
 
 wezterm.on(
-	'format-tab-title',
-	function(tab, tabs, panes, config, hover, max_width)
-		local title = tab_title(tab)
+  'format-tab-title',
+  function(tab, tabs, panes, config, hover, max_width)
+    local title = tab_title(tab)
 
-		if tab.is_active then
-			return wezterm.format({
-				{ Background = { Color = '008900' } },
-				{ Foreground = { Color = 'ffffff' } },
-				{ Attribute = { Intensity = 'Bold' } },
-				{ Text = ' ' .. title .. ' ' },
-			})
-		end
+    if tab.is_active then
+      return wezterm.format({
+        { Background = { Color = '008900' } },
+        { Foreground = { Color = 'ffffff' } },
+        { Attribute = { Intensity = 'Bold' } },
+        { Text = ' ' .. title .. ' ' },
+      })
+    end
 
-		if tab.is_last_active then
-			-- Green color and append '*' to previously active tab.
-			return wezterm.format({
-				{ Background = { Color = 'green' } },
-				{ Text = ' ' .. title .. '*' },
-			})
-		end
+    if tab.is_last_active then
+      -- Green color and append '*' to previously active tab.
+      return wezterm.format({
+        { Background = { Color = 'green' } },
+        { Text = ' ' .. title .. '*' },
+      })
+    end
 
-		return title
-	end
+    return title
+  end
 )
 
 return config
