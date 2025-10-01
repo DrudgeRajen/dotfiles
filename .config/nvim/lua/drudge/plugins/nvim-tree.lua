@@ -26,6 +26,7 @@ return {
       },
       actions = {
         open_file = {
+          quit_on_open = false,
           window_picker = {
             enable = false,
           },
@@ -40,5 +41,9 @@ return {
       },
     })
     vim.keymap.set("n", "<leader>pv", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
-  end
+  end,
+  lazy = true,
+  keys = {
+    { "<leader>pv", "<cmd>NvimTreeToggle<CR>", desc = "Toggle file explorer" },
+  },
 }
