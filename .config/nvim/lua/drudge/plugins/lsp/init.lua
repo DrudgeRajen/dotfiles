@@ -7,19 +7,14 @@ return {
     "williamboman/mason-lspconfig.nvim",
     opts = {
       ensure_installed = { 'lua_ls', 'gopls', 'yamlls', 'dockerls', 'pyright' },
-      handlers = {
-        function(server_name)
-          require('lspconfig')[server_name].setup({})
-        end
-      }
     },
   },
   {
     "neovim/nvim-lspconfig",
     opts = {},
     config = function()
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      require('lspconfig').rust_analyzer.setup({
+      local capabilities           = require('cmp_nvim_lsp').default_capabilities()
+      vim.lsp.config.rust_analyzer = {
         cmd = { "rustup", "run", "stable", "rust-analyzer" },
         capabilities = capabilities,
 
@@ -49,9 +44,9 @@ return {
 
           },
         },
-      })
+      }
 
-      require('lspconfig').yamlls.setup({
+      vim.lsp.config.yamlls        = {
         settings = {
           yaml = {
             schemas = {
@@ -71,9 +66,9 @@ return {
             },
           }
         }
-      })
+      }
 
-      require('lspconfig').gopls.setup({
+      vim.lsp.config.gopls         = {
         settings = {
           gopls = {
             analyses = {
@@ -83,9 +78,9 @@ return {
             gofumpt = true,
           },
         },
-      })
+      }
 
-      require('lspconfig').lua_ls.setup({
+      vim.lsp.config.lua_ls        = {
         settings = {
           Lua = {
             runtime = {
@@ -103,9 +98,14 @@ return {
             },
           },
         },
-      })
+      }
 
-      require('lspconfig').pyright.setup({})
+      vim.lsp.config.pyright       = {}
+
+      vim.lsp.enable('rust_analyzer')
+      vim.lsp.enable('yamlls')
+      vim.lsp.enable('gopls')
+      vim.lsp.enable('lua_ls')
     end
   }
 }
