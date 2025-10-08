@@ -58,4 +58,4 @@ vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search(
   desc = "Search on current file"
 })
 
-vim.keymap.set('n', '<Esc><Esc>', '<cmd>nohlsearch<cr>')
+vim.keymap.set('n', '<leader>nh', '<cmd>nohlsearch<cr>')
