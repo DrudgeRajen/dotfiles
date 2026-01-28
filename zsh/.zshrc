@@ -268,3 +268,12 @@ eval $(thefuck --alias fk)
 
 # ------- bat (better cat) ----------
 export BAT_THEME=gruvbox-dark
+
+# opencode
+export PATH=/Users/rajendras/.opencode/bin:$PATH
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+# Android Studio
+export PATH=$PATH:~/Library/Android/sdk/platform-tools
+
+export PATH="$HOME/.local/share/gem/ruby/4.0.0/bin:$PATH"

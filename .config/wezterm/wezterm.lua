@@ -131,6 +131,7 @@ config.keys = {
       mods = 'CTRL|SHIFT',
     },
   },
+  { key = "Enter", mods = "SHIFT", action = wezterm.action { SendString = "\x1b\r" } },
 }
 
 -- Open Hyperlinks with Ctrl + Mouse click

@@ -10,5 +10,5 @@ gcs_service_account.json
 /Users/rajendras/projects/thxlab/deployment/lke-thxnet-dev/bccor-dev/bccor-private-secret.yaml
 
 # Claude Code settings (user-specific)
-.claude/
+.claude/settings.json
 

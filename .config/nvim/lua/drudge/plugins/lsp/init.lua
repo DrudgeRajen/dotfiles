@@ -69,6 +69,7 @@ return {
       }
 
       vim.lsp.config.gopls         = {
+        capabilities = capabilities,
         settings = {
           gopls = {
             analyses = {
