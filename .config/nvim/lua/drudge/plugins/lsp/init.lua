@@ -21,7 +21,8 @@ return {
         settings = {
           ["rust-analyzer"] = {
             diagnostics = { enable = false },
-            checkOnSave = {
+            checkOnSave = true,
+            check = {
               command = "clippy",
               extraArgs = { "--target-dir", "/tmp/rust-analyzer-check" }
             },
