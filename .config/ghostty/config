@@ -1,0 +1,60 @@
+# Ported from the former WezTerm config (.config/wezterm/wezterm.lua, removed; see git history).
+
+# Font: WezTerm resolves to JetBrainsMonoNL Nerd Font Regular (no Medium installed).
+# Ghostty bundles Nerd Font symbols, so plain JetBrains Mono NL renders the same icons.
+font-family = JetBrains Mono NL
+font-size = 16
+adjust-cell-height = 30%
+adjust-cell-width = -10%
+
+# Colours: exact "Snazzy (base16)" palette dumped from WezTerm (Ghostty's "Snazzy" differs).
+background = #282a36
+foreground = #e2e4e5
+cursor-color = #e2e4e5
+cursor-text = #282a36
+selection-background = #e2e4e5
+selection-foreground = #282a36
+palette = 0=#282a36
+palette = 1=#ff5c57
+palette = 2=#5af78e
+palette = 3=#f3f99d
+palette = 4=#57c7ff
+palette = 5=#ff6ac1
+palette = 6=#9aedfe
+palette = 7=#e2e4e5
+palette = 8=#78787e
+palette = 9=#ff5c57
+palette = 10=#5af78e
+palette = 11=#f3f99d
+palette = 12=#57c7ff
+palette = 13=#ff6ac1
+palette = 14=#9aedfe
+palette = 15=#f1f1f0
+
+# Window
+background-opacity = 0.85
+background-blur = 20
+# herdr paints explicit background colours; without this those cells stay opaque (WezTerm applies opacity to all).
+background-opacity-cells = true
+macos-titlebar-style = tabs
+cursor-style = bar
+cursor-style-blink = true
+focus-follows-mouse = true
+confirm-close-surface = false
+scrollback-limit = 100000000
+
+# Keys (WezTerm parity)
+keybind = ctrl+0=reset_font_size
+keybind = cmd+[=goto_split:left
+keybind = cmd+]=goto_split:right
+keybind = cmd+up=goto_split:up
+keybind = cmd+down=goto_split:down
+keybind = cmd+d=new_split:right
+keybind = cmd+shift+d=new_split:down
+keybind = cmd+k=clear_screen
+keybind = cmd+w=close_surface
+# herdr next/prev tab. Legacy encoding sends Ctrl+Tab as plain Tab, so send the CSI-u form explicitly.
+keybind = ctrl+tab=csi:9;5u
+keybind = ctrl+shift+tab=csi:9;6u
+# Shift+Enter = newline in Claude Code
+keybind = shift+enter=text:\x1b\r
