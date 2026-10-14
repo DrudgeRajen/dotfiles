@@ -12,3 +12,7 @@ gcs_service_account.json
 # Claude Code settings (user-specific)
 .claude/settings.json
 
+
+**/.claude/settings.local.json
+
+**/.claude/.cc-writes/

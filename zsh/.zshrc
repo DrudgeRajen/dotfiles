@@ -174,7 +174,6 @@ eval "$(starship init zsh)"
 
 eval "$(direnv hook zsh)"
 
-
 # The next line updates PATH for the Google Cloud SDK.
 #source /opt/google-cloud-sdk/path.zsh.inc
 if [ -f '/opt/google-cloud-sdk/path.zsh.inc' ]; then source '/opt/google-cloud-sdk/path.zsh.inc'; fi
@@ -194,14 +193,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$PATH:/Users/rajendras/.cache/lm-studio/bin"
 PROMPT='$(kube_ps1)'$PROMPT # or RPROMPT='$(kube_ps1)'
 
-
 # ----zexoide (better cd) -----
 eval "$(zoxide init zsh)"
-alias cd="z"
 
 # ------- eza (better ls) -----
 alias ls="eza --icons=always"
-
 
 # fzf
 # Set up fzf key bindings and fuzzy completion
@@ -265,7 +261,6 @@ _fzf_comprun() {
 eval $(thefuck --alias)
 eval $(thefuck --alias fk)
 
-
 # ------- bat (better cat) ----------
 export BAT_THEME=gruvbox-dark
 
@@ -277,3 +272,33 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH=$PATH:~/Library/Android/sdk/platform-tools
 
 export PATH="$HOME/.local/share/gem/ruby/4.0.0/bin:$PATH"
+
+# Claude Profiles
+alias claude-personal='CLAUDE_CONFIG_DIR=~/.claude-personal claude'
+alias claude-thx='CLAUDE_CONFIG_DIR=~/.claude-thx claude'
+# Default profile (for now): bare `claude` uses the thxlab config.
+# claude-personal/smriti aliases above pin their own config so this can't leak in.
+export CLAUDE_CONFIG_DIR="$HOME/.claude-thx"
+
+# Boundary guard: personal repos always use the personal profile, whatever CLAUDE_CONFIG_DIR says.
+claude() {
+  case "$PWD/" in
+    "$HOME"/projects/own/*|"$HOME"/go/src/github.com/dravya-*)
+      CLAUDE_CONFIG_DIR="$HOME/.claude-personal" command claude "$@" ;;
+    *) command claude "$@" ;;
+  esac
+}
+
+# --- Second Brain ---
+alias brain-sync='bash ~/.claude-personal/brain-sync.sh'
+alias brain="cd /Users/rajendras/projects/own/second-brain"
+
+# Smriti — Raj's single agent: second brain + tmux conductor, via Claude Code.
+# ⚠️ BOUNDARY: MUST run on the PERSONAL config (~/.claude-personal), NEVER ~/.claude-thx
+# (shared THX account). Personal data (finance/Dravya) through the shared account = leak.
+# The alias PINS CLAUDE_CONFIG_DIR so an ambient claude-thx env can't leak in.
+# She observes + directs ANY tmux pane via tmux (personal→office allowed); office WORK
+# runs in the office pane on office creds. Does NOT mount office dirs.
+# pi/local-model console is SHELVED (see wiki smriti-console) — use: smriti-pi.
+alias smriti='cd ~/projects/own/second-brain && CLAUDE_CONFIG_DIR="$HOME/.claude-personal" claude'
+alias smriti-pi='cd ~/projects/own/smriti-console && pi --provider ollama --model qwen2.5:14b --extension ./smriti-conductor.ts --append-system-prompt "$(cat ./smriti-identity.md)"'
