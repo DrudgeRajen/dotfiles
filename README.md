@@ -18,7 +18,7 @@ This repository contains configuration files for:
 - **Zsh** - Shell configuration with Oh My Zsh
 
 ### 🖨️ Terminal & UI
-- **WezTerm** - Terminal emulator
+- **Ghostty** - Terminal emulator
 - **Starship** - Cross-shell prompt
 - **Neofetch** - System information display
 - **GitUI** - Git TUI client
@@ -53,7 +53,7 @@ This repository contains configuration files for:
 
    # Development tools
    brew install neovim tmux git
-   brew install --cask wezterm
+   brew install --cask ghostty
 
    # Terminal tools
    brew install starship neofetch gitui htop cheat
@@ -97,7 +97,7 @@ This repository contains configuration files for:
 │   ├── nvim/               # Neovim configuration
 │   ├── raycast/            # Raycast settings
 │   ├── sketchybar/         # Menu bar configuration
-│   ├── wezterm/            # Terminal emulator config
+│   ├── ghostty/            # Terminal emulator config
 │   ├── .tmux.conf          # Tmux configuration
 │   └── starship.toml       # Shell prompt config
 ├── git/
@@ -123,7 +123,7 @@ This repository contains configuration files for:
 ### Terminal Experience
 - **Zsh + Oh My Zsh**: Enhanced shell with plugins and themes
 - **Starship**: Fast, customizable prompt
-- **WezTerm**: GPU-accelerated terminal with advanced features
+- **Ghostty**: Fast, native GPU-accelerated terminal
 
 ## 🔧 Customization
 
@@ -134,7 +134,7 @@ Each tool's configuration can be found in its respective directory under `.confi
 - **Shell prompt**: `.config/starship.toml`
 - **Window management**: `.config/aerospace/aerospace.toml`
 - **Editor**: `.config/nvim/`
-- **Terminal**: `.config/wezterm/`
+- **Terminal**: `.config/ghostty/config`
 - **Git settings**: `git/.gitconfig`
 
 ### Adding New Tools

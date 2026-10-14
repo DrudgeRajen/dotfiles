@@ -1,0 +1,40 @@
+onboarding = false
+[keys]
+prefix = "ctrl+a"
+
+split_horizontal = "prefix+minus"
+split_vertical = "prefix+|"
+
+zoom = "prefix+m"
+
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+swap_pane_left = "prefix+shift+h"
+swap_pane_down = "prefix+shift+j"
+swap_pane_up = "prefix+shift+k"
+swap_pane_right = "prefix+shift+l"
+
+next_tab = "ctrl+tab"
+previous_tab = "ctrl+shift+tab"
+
+goto = "prefix+o"
+
+toggle_sidebar = "prefix+s"
+
+[ui]
+mouse_capture = true
+
+show_agent_labels_on_pane_borders = false
+agent_panel_sort = "priority"
+
+sidebar_start_collapsed = true
+sidebar_collapsed_mode = "compact"
+[theme]
+name = "terminal"
+auto_switch = false
+
+[ui.toast]
+delivery = "system"

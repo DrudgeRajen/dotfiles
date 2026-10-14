@@ -13,7 +13,10 @@ after-login-command = []
 # Run Sketchybar together with AeroSpace
 # sketchbar has a built-in detection of already running process,
 # so it won't be run twice on AeroSpace restart
-after-startup-command = ['exec-and-forget sketchybar'] 
+# JankyBorders removed 2026-06-16 — glitched on the BenQ (sliver / hidpi / multi-window
+# collapse). Gaps-only gives a clean floating look with zero maintenance. bordersrc kept
+# on disk if ever wanted back. To re-enable: add 'exec-and-forget borders ...' here.
+after-startup-command = ['exec-and-forget sketchybar']
 
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -70,12 +73,15 @@ automatically-unhide-macos-hidden-apps = false
 [gaps]
     # Per-monitor overrides
     # For your BenQ monitor (replace "BenQ" with your actual monitor pattern)
-    inner.horizontal = [{ monitor."BenQ*" = 10 }, 5]
-    inner.vertical = [{ monitor."BenQ*" = 10 }, 5]
-    outer.left = [{ monitor."BenQ*" = 20 }, 5]
-    outer.bottom = [{ monitor."BenQ*" = 30 }, 5]
-    outer.top = [{ monitor."BenQ*" = 45 }, 30]
-    outer.right = [{ monitor."BenQ*" = 20 }, 5]
+    # Floating "card" look: even margins all sides + matching inner gaps.
+    # Top = sketchybar height (40) + the side-gap, so the visible gap below the
+    # bar matches the other sides (BenQ 40+14=54, 14" 40+8=48).
+    inner.horizontal = [{ monitor."BenQ*" = 14 }, 8]
+    inner.vertical = [{ monitor."BenQ*" = 14 }, 8]
+    outer.left = [{ monitor."BenQ*" = 14 }, 8]
+    outer.right = [{ monitor."BenQ*" = 14 }, 8]
+    outer.bottom = [{ monitor."BenQ*" = 14 }, 16]
+    outer.top = [{ monitor."BenQ*" = 54 }, 8]
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -206,8 +212,9 @@ automatically-unhide-macos-hidden-apps = false
     shift-down = ['volume set 0', 'mode main']
 
 [[on-window-detected]]
-if.app-id = 'com.github.wez.wezterm'
-run = "move-node-to-workspace T"
+if.app-id = 'com.mitchellh.ghostty'
+# Ghostty docs workaround: native tabs show up as separate windows; 'layout floating' if this still splits.
+run = ['layout tiling', 'move-node-to-workspace T']
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
