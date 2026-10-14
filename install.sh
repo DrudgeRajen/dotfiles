@@ -173,6 +173,21 @@ install_tmux() {
     fi
 }
 
+# Install herdr (agent/terminal multiplexer, replaces tmux day-to-day)
+install_herdr() {
+    section "Installing herdr"
+
+    if command -v herdr &> /dev/null; then
+        success "herdr already installed"
+    elif [ "$OS" = "Linux" ]; then
+        info "Installing herdr via official install script..."
+        curl -fsSL https://herdr.dev/install.sh | sh
+        success "herdr installed"
+    elif [ "$OS" = "Darwin" ]; then
+        warn "Install herdr via Homebrew: brew install herdr"
+    fi
+}
+
 # Install Rust
 install_rust() {
     section "Installing Rust"
@@ -244,6 +259,35 @@ setup_tmux() {
     fi
 }
 
+# Setup herdr
+setup_herdr() {
+    section "Setting up herdr Config"
+
+    # Only the config file is linked: ~/.config/herdr also holds sockets and session state
+    mkdir -p ~/.config/herdr
+    ln -sf ~/dotfiles/.config/herdr/config.toml ~/.config/herdr/config.toml
+    success "herdr config linked"
+}
+
+# Setup Ghostty
+setup_ghostty() {
+    section "Setting up Ghostty"
+
+    if [ "$OS" = "Darwin" ]; then
+        mkdir -p ~/.config/ghostty
+        ln -sf ~/dotfiles/.config/ghostty/config ~/.config/ghostty/config
+        success "Ghostty config linked"
+    elif [ "$OS" = "Linux" ]; then
+        # Headless box reached over SSH from Ghostty: needs TERM=xterm-ghostty in terminfo
+        if infocmp xterm-ghostty &> /dev/null; then
+            success "xterm-ghostty terminfo already installed"
+        else
+            tic -x ~/dotfiles/.config/ghostty/xterm-ghostty.terminfo
+            success "xterm-ghostty terminfo installed"
+        fi
+    fi
+}
+
 # Print summary
 print_summary() {
     section "Installation Summary"
@@ -253,6 +297,8 @@ print_summary() {
     echo "✅ CLI tools installed (ripgrep, fzf, etc.)"
     echo "✅ Neovim installed and configured"
     echo "✅ tmux installed and configured"
+    echo "✅ herdr installed and configured"
+    echo "✅ Ghostty config (macOS) / terminfo (Linux) set up"
     echo "✅ Rust toolchain installed"
     echo ""
     info "Next steps:"
@@ -272,7 +318,8 @@ main() {
     echo "  • Node.js 20 LTS & npm"
     echo "  • System dependencies (Python, Go)"
     echo "  • CLI tools (ripgrep, fzf, fd, etc.)"
-    echo "  • Neovim & tmux"
+    echo "  • Neovim, tmux & herdr"
+    echo "  • Ghostty config (macOS) / terminfo (Linux)"
     echo "  • Rust toolchain"
     echo "  • Your dotfiles configuration"
     echo ""
@@ -304,10 +351,13 @@ main() {
     install_mason_dependencies
     install_neovim
     install_tmux
+    install_herdr
     install_rust
     create_directories
     setup_neovim
     setup_tmux
+    setup_herdr
+    setup_ghostty
     
     print_summary
 }
